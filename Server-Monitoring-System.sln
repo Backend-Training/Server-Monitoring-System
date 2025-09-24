@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server-Monitoring-System", "Server-Monitoring-System\Server-Monitoring-System.csproj", "{5B501680-A624-4C78-A76A-25F9818D9B9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerMonitoringSystem.Collector", "ServerMonitoringSystem.Collector\ServerMonitoringSystem.Collector.csproj", "{932BFF20-F84D-4EFE-AB85-B05DE5D5DF1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B501680-A624-4C78-A76A-25F9818D9B9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B501680-A624-4C78-A76A-25F9818D9B9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B501680-A624-4C78-A76A-25F9818D9B9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B501680-A624-4C78-A76A-25F9818D9B9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{932BFF20-F84D-4EFE-AB85-B05DE5D5DF1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{932BFF20-F84D-4EFE-AB85-B05DE5D5DF1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{932BFF20-F84D-4EFE-AB85-B05DE5D5DF1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{932BFF20-F84D-4EFE-AB85-B05DE5D5DF1E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
