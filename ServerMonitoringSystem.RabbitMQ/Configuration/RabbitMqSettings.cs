@@ -1,3 +1,5 @@
+using RabbitMQ.Client;
+
 namespace RabbitMQ.Configuration;
 
 public class RabbitMqSettings
@@ -14,5 +16,16 @@ public class RabbitMqSettings
         Username = username;
         Password = password;
         Port = port;
+    }
+
+    public ConnectionFactory Connection()
+    {
+        return new ConnectionFactory()
+        {
+            HostName = this.HostName,
+            UserName = this.Username,
+            Password = this.Password,
+            Port = this.Port
+        };
     }
 }
