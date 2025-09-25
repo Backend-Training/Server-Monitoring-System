@@ -1,11 +1,14 @@
 using System.Text.Json;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Configuration;
 using ServerMonitoringSystem.Collector.Configuration;
 using ServerMonitoringSystem.Collector.Services;
 
-var jsonFile = File.ReadAllText("appsettings.json");
-var rootConfig = JsonSerializer.Deserialize<RootConfig>(jsonFile);
-var serverSettings = rootConfig.ServerStatisticsConfig;
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .AddEnvironmentVariables()
+    .Build();
+
 
 var serverStatisticsService = new ServerStatisticsService();
 
@@ -13,7 +16,7 @@ var serverStatisticsService = new ServerStatisticsService();
 var publisher = await RabbitMqPublisher.CreateAsync(
     new RabbitMqSettings(), // I Used Default Settings Located In This Class
     "server_stats",
-    $"ServerStatistics.{serverSettings.ServerIdentifier}"
+    $"ServerStatistics.{configuration["ServerStatisticsConfig:ServerIdentifier"]}"
 );
 
 // Keep Sending Every SamplingInterval Seconds
@@ -23,7 +26,7 @@ while (true)
 
     await publisher.PublishAsync(JsonSerializer.Serialize(serverStatistics));
     
-    Console.WriteLine($"Published stats for {serverSettings.ServerIdentifier} at {serverStatistics.Timestamp}");
+    Console.WriteLine($"Published stats for {configuration["ServerStatisticsConfig:ServerIdentifier"]} at {serverStatistics.Timestamp}");
     
-    await Task.Delay(TimeSpan.FromSeconds(serverSettings.SamplingIntervalSeconds));
+    await Task.Delay(TimeSpan.FromSeconds(Double.Parse(configuration["ServerStatisticsConfig:SamplingIntervalSeconds"])));
 }
