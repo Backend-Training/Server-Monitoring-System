@@ -6,18 +6,13 @@ namespace ServerMonitoringSystem.AnamolyDetector.MongoDB;
 
 public class MongoDbPersitence : IPersitence
 {
-    private string _connectionString;
+   
     private string _databaseName;
     private string _collectionName;
     private IMongoClient _client;
 
-    public MongoDbPersitence(
-        string connectionString, 
-        string databaseName, 
-        string collectionName, 
-        IMongoClient client)
+    public MongoDbPersitence(string databaseName, string collectionName, IMongoClient client)
     {
-        _connectionString = connectionString;
         _databaseName = databaseName;
         _collectionName = collectionName;
         _client = client;
@@ -30,4 +25,6 @@ public class MongoDbPersitence : IPersitence
 
         await collection.InsertOneAsync(serverStatistics);
     }
+    
+    
 }
