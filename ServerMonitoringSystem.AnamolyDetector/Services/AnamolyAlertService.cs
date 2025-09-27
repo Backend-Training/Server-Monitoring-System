@@ -22,17 +22,21 @@ public class AnamolyAlertService : IAlert
 
     public async Task SendAlert(ServerStatistics currentStatistics)
     {
+        await _signal.Start();
+        
         var prevStatistcs = _repository.GetLastItem();
         if (currentStatistics.MemoryUsage >
             prevStatistcs.MemoryUsage * (1 + _serverStatisticsTherhshold.MemoryUsageAnomalyThresholdPercentage))
         {
-            _signal.Invoke("MemoryAnomaly", "Memory Usage Anomaly Alert");
+            await _signal.Invoke("MemoryAnomaly", "Memory Usage Anomaly Alert");
         }
 
         if (currentStatistics.CpuUsage >
             prevStatistcs.CpuUsage * (1 + _serverStatisticsTherhshold.CpuUsageAnomalyThresholdPercentage))
         {
-            _signal.Invoke("CPUAnomaly", "CPU Usage Anomaly Alert");
+            await _signal.Invoke("CPUAnomaly", "CPU Usage Anomaly Alert");
         }
+
+        await _signal.Stop();
     }
 }
