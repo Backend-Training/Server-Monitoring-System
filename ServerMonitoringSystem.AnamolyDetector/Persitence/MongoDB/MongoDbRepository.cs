@@ -4,27 +4,30 @@ using ServerMonitoringSystem.AnamolyDetector.Persitence;
 
 namespace ServerMonitoringSystem.AnamolyDetector.MongoDB;
 
-public class MongoDbPersitence : IPersitence
+public class MongoDbRepository : IRepository
 {
    
-    private string _databaseName;
-    private string _collectionName;
+    private IMongoDatabase _database;
+    private IMongoCollection<ServerStatistics> _collection;
     private IMongoClient _client;
 
-    public MongoDbPersitence(string databaseName, string collectionName, IMongoClient client)
+    public MongoDbRepository(string databaseName, string collectionName, IMongoClient client)
     {
-        _databaseName = databaseName;
-        _collectionName = collectionName;
         _client = client;
+        _database = _client.GetDatabase(databaseName);;
+        _collection = _database.GetCollection<ServerStatistics>(collectionName);
     }
 
     public async Task Save(ServerStatistics serverStatistics)
     {
-        var database = _client.GetDatabase(_databaseName);
-        var collection = database.GetCollection<ServerStatistics>(_collectionName);
-
-        await collection.InsertOneAsync(serverStatistics);
+        await _collection.InsertOneAsync(serverStatistics);
     }
-    
-    
+
+    public ServerStatistics GetLastItem()
+    {
+        return _collection
+            .Find(Builders<ServerStatistics>.Filter.Empty)
+            .SortByDescending(x => x.Timestamp)
+            .FirstOrDefault();
+    }
 }
