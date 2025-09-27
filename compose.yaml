@@ -1,0 +1,47 @@
+﻿version: '3.9'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"   
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  collector:
+    build: ServerMonitoringSystem.Collector/
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASS: guest
+  anamolydetector:
+    build: ServerMonitoringSystem.AnamolyDetector/
+    depends_on:
+      - rabbitmq
+      - collector
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASS: guest
+      MongoDB__MongoURI: mongodb://amr:amr123456@cluster0.qw08d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      MongoDB__Database: DemoServerStats
+      MongoDB__DatabaseCollection: ServerStatistics
+  signalrhub:
+    build: ServerMonitoringSystem.SignalRHub/
+    ports:
+      - "8080:8080"
+  consumer:
+    build: ServerMonitoringSystem.Consumer
+    depends_on:
+      - signalrhub
+    environment:
+      SignalRConfig__SignalRUrl: http://signalrhub:8080/alertHub
+    
+      
