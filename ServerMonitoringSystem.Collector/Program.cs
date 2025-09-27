@@ -4,6 +4,10 @@ using RabbitMQ.Configuration;
 using ServerMonitoringSystem.Collector.Configuration;
 using ServerMonitoringSystem.Collector.Services;
 
+await Task.Delay(1000);
+Console.WriteLine("Welcome From Collection Service");
+await Task.Delay(1000);
+
 var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .AddEnvironmentVariables()
@@ -18,6 +22,8 @@ var publisher = await RabbitMqPublisher.CreateAsync(
     "server_stats",
     $"ServerStatistics.{configuration["ServerStatisticsConfig:ServerIdentifier"]}"
 );
+
+
 
 // Keep Sending Every SamplingInterval Seconds
 while (true)

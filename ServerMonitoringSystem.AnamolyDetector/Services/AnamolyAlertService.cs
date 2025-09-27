@@ -1,6 +1,5 @@
 using System.Text.Json;
 using ServerMonitoringSystem.AnamolyDetector.Models;
-using ServerMonitoringSystem.AnamolyDetector.Utils;
 using ServerMonitoringSystem.AnamolyDetector.Persitence;
 using ServerMonitoringSystem.AnamolyDetector.Services.Interfaces;
 using ServerMonitoringSystem.AnamolyDetector.Signaling.Interfaces;
@@ -11,13 +10,13 @@ public class AnamolyAlertService : IAlert
 {
     private IRepository _repository;
     private ISignal _signal;
-    private ServerStatisticsThershold _serverStatisticsTherhshold;
+    private ServerStatisticsThershold? _serverStatisticsTherhshold;
 
-    public AnamolyAlertService(IRepository repository, ISignal signal, string anomalyDetectionConfig)
+    public AnamolyAlertService(IRepository repository, ISignal signal, ServerStatisticsThershold serverStatisticsTherhshold)
     {
         _repository = repository;
         _signal = signal;
-        _serverStatisticsTherhshold = this.GetThersholdDetectionConfig(anomalyDetectionConfig);
+        _serverStatisticsTherhshold = serverStatisticsTherhshold;
     }
 
     public async Task SendAlert(ServerStatistics currentStatistics)

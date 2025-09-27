@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Hardware.Info;
 using ServerMonitoringSystem.Collector.DTOs;
 namespace ServerMonitoringSystem.Collector.Services;
 
@@ -6,22 +7,17 @@ namespace ServerMonitoringSystem.Collector.Services;
 public class ServerStatisticsService
 {
     
-    private PerformanceCounter _cpuMonitor;
-    private PerformanceCounter _memoryMonitor;
+    private readonly IHardwareInfo _hardwareInfo;
 
     public ServerStatisticsService()
     {
-        _cpuMonitor = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-        _memoryMonitor = new PerformanceCounter("Memory", "Available MBytes");
-        
-        _cpuMonitor.NextValue();
-        _memoryMonitor.NextValue();
-        
+        _hardwareInfo = new HardwareInfo();
     }
+
     public ServerStatistics Collect()
     {
-        // Warm Up Time For Getting Right Results
-        Thread.Sleep(500);
+        _hardwareInfo.RefreshMemoryStatus();
+        _hardwareInfo.RefreshCPUList();
         
         var availableMemory = GetAvailableMemory();
         var cpuUsage = GetCpuUsage();
@@ -38,17 +34,23 @@ public class ServerStatisticsService
     }
     private double GetTotalMemory()
     {
-        return (double)Environment.WorkingSet / (1024.0 * 1024.0); // Convert To Mb
+        return _hardwareInfo.MemoryStatus.TotalPhysical / (1024.0 * 1024.0);
     }
 
     private double GetAvailableMemory()
     {
-        return _memoryMonitor.NextValue();
+        return _hardwareInfo.MemoryStatus.AvailablePhysical / (1024.0 * 1024.0);
     }
 
     private double GetCpuUsage()
     {
-        return _cpuMonitor.NextValue();
+        double cpuUsage = 0;
+        foreach (var cpu in _hardwareInfo.CpuList)
+        {
+            cpuUsage += cpu.PercentProcessorTime;
+        }
+        cpuUsage /= _hardwareInfo.CpuList.Count;
+        return cpuUsage;
     }
 
     private DateTime GetTimeStamp()

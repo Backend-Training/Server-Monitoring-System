@@ -4,6 +4,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server-Monitoring-System", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerMonitoringSystem.Collector", "ServerMonitoringSystem.Collector\ServerMonitoringSystem.Collector.csproj", "{932BFF20-F84D-4EFE-AB85-B05DE5D5DF1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerMonitoringSystem.RabbitMQ", "ServerMonitoringSystem.RabbitMQ\ServerMonitoringSystem.RabbitMQ.csproj", "{D9814523-A9BB-4FB5-99E5-94CB5E9FF485}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerMonitoringSystem.AnamolyDetector", "ServerMonitoringSystem.AnamolyDetector\ServerMonitoringSystem.AnamolyDetector.csproj", "{CCC7647E-42D5-489A-8A6D-A885DCC5CCA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerMonitoringSystem.Consumer", "ServerMonitoringSystem.Consumer\ServerMonitoringSystem.Consumer.csproj", "{6CFFA62A-4AC3-4245-BFD3-5E03B970ED34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerMonitoringSystem.SignalRHub", "ServerMonitoringSystem.SignalRHub\ServerMonitoringSystem.SignalRHub.csproj", "{864D4C17-40B2-4878-AFE5-FE9B9F19AE88}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7EE7A57F-B15C-4FAF-A46A-3F09C74914A1}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +31,21 @@ Global
 		{932BFF20-F84D-4EFE-AB85-B05DE5D5DF1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{932BFF20-F84D-4EFE-AB85-B05DE5D5DF1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{932BFF20-F84D-4EFE-AB85-B05DE5D5DF1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9814523-A9BB-4FB5-99E5-94CB5E9FF485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9814523-A9BB-4FB5-99E5-94CB5E9FF485}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9814523-A9BB-4FB5-99E5-94CB5E9FF485}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9814523-A9BB-4FB5-99E5-94CB5E9FF485}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCC7647E-42D5-489A-8A6D-A885DCC5CCA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCC7647E-42D5-489A-8A6D-A885DCC5CCA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCC7647E-42D5-489A-8A6D-A885DCC5CCA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCC7647E-42D5-489A-8A6D-A885DCC5CCA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CFFA62A-4AC3-4245-BFD3-5E03B970ED34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CFFA62A-4AC3-4245-BFD3-5E03B970ED34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CFFA62A-4AC3-4245-BFD3-5E03B970ED34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CFFA62A-4AC3-4245-BFD3-5E03B970ED34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{864D4C17-40B2-4878-AFE5-FE9B9F19AE88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{864D4C17-40B2-4878-AFE5-FE9B9F19AE88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{864D4C17-40B2-4878-AFE5-FE9B9F19AE88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{864D4C17-40B2-4878-AFE5-FE9B9F19AE88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

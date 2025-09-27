@@ -11,11 +11,15 @@ using ServerMonitoringSystem.AnamolyDetector.Services;
 using ServerMonitoringSystem.AnamolyDetector.Services.Interfaces;
 using ServerMonitoringSystem.AnamolyDetector.Signaling.Interfaces;
 using ServerMonitoringSystem.AnamolyDetector.Signaling.SignalR;
+await Task.Delay(1000);
+Console.WriteLine("Welcome From AnamolyDetector Service");
+await Task.Delay(1000);
 
 var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .AddEnvironmentVariables()
     .Build();
+
 var consumer = await RabbitMqConsumer.CreateAsync(
     new RabbitMqSettings(),
     exchangeName: "server_stats",
@@ -35,14 +39,19 @@ ISignal signalR = new SignalRAlerting(
         .WithAutomaticReconnect()
         .Build()
 );
+    
+var thresholdConfig = configuration
+    .GetSection("ServerStatisticsThershold")
+    .Get<ServerStatisticsThershold>();
+
 IAlert anamolyAlertService = new AnamolyAlertService(
     repository: repositoryService,
     signal: signalR,
-    anomalyDetectionConfig: configuration["AnomalyDetectionConfig"]
+    serverStatisticsTherhshold: thresholdConfig
 );
 IAlert highUsageAlertService = new HighUsageAlertService(
     signal: signalR,
-    highUsageThersholdConfig: configuration["AnomalyDetectionConfig"]
+    serverStatisticsTherhshold: thresholdConfig
 );
 
 await consumer.StartAsync(async (message, routingKey) =>

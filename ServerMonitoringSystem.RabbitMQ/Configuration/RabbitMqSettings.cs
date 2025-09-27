@@ -9,13 +9,12 @@ public class RabbitMqSettings
     public string Password { get; set; }
     public int Port { get; set; }
 
-    public RabbitMqSettings(string hostName = "localhost", string username = "guest",
-        string password = "guest", int port = 5672)
+    public RabbitMqSettings()
     {
-        HostName = hostName;
-        Username = username;
-        Password = password;
-        Port = port;
+        HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost";
+        Username = Environment.GetEnvironmentVariable("RABBITMQ_USER") ?? "guest";
+        Password = Environment.GetEnvironmentVariable("RABBITMQ_PASS") ?? "guest";
+        Port = int.Parse(Environment.GetEnvironmentVariable("RABBITMQ_PORT") ?? "5672");
     }
 
     public ConnectionFactory Connection()

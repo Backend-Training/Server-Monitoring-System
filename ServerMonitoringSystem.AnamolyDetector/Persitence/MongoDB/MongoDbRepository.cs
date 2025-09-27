@@ -20,7 +20,7 @@ public class MongoDbRepository : IRepository
 
     public async Task Save(ServerStatistics serverStatistics)
     {
-        await _collection.InsertOneAsync(serverStatistics);
+         await _collection.InsertOneAsync(serverStatistics);
     }
 
     public ServerStatistics GetLastItem()

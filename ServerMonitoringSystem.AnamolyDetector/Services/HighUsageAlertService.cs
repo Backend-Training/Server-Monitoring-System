@@ -1,7 +1,6 @@
 using ServerMonitoringSystem.AnamolyDetector.Models;
 using ServerMonitoringSystem.AnamolyDetector.Services.Interfaces;
 using ServerMonitoringSystem.AnamolyDetector.Signaling.Interfaces;
-using ServerMonitoringSystem.AnamolyDetector.Utils;
 
 namespace ServerMonitoringSystem.AnamolyDetector.Services;
 
@@ -10,10 +9,10 @@ public class HighUsageAlertService : IAlert
     private ISignal _signal;
     private ServerStatisticsThershold _serverStatisticsTherhshold;
 
-    public HighUsageAlertService(ISignal signal, string highUsageThersholdConfig)
+    public HighUsageAlertService(ISignal signal, ServerStatisticsThershold serverStatisticsTherhshold)
     {
         _signal = signal;
-        _serverStatisticsTherhshold = this.GetThersholdDetectionConfig(highUsageThersholdConfig);
+        _serverStatisticsTherhshold = serverStatisticsTherhshold;
     }
 
     public async Task SendAlert(ServerStatistics currentStatistics)
