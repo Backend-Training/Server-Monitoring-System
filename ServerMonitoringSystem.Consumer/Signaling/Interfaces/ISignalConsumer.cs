@@ -4,5 +4,5 @@ public interface ISignalConsumer
 {
     public Task Start();
     public Task Stop();
-    public Task Register(string signal, Action<string> action);
+    public void Register(string signal, Action<string> action);
 }
